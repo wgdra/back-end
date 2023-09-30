@@ -119,9 +119,6 @@ router.post('/login', async (request, response) => {
       }
 
       if (data.password != dataRequest.password) {
-        console.log('dât pass', data.password)
-        console.log('dât req', dataRequest.password)
-
         return response.status(400).json({ status: false, data: '', msg: 'Sai mật khẩu!' })
       } else {
         var id = data.id
@@ -231,7 +228,7 @@ router.post('/:id', async (request, response) => {
         const { data, error } = await request.supabase
           .from('user')
           .update({
-            password: encrypt(dataRequest.password),
+            password: dataRequest.password,
             full_name: dataRequest.full_name.trim().replace(/\s+/g, ' '),
             phone: dataRequest.phone.trim(),
             email: dataRequest.email.trim(),
